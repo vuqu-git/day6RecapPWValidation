@@ -22,11 +22,11 @@ public class PWValidation {
     private static final int minNumberOfDigits = 2;
 
 
-    public static boolean isOfMinLength(String PW, int minLength) {
-        return PW.length() >= minLength;
+    public static boolean isOfMinLength(String pw, int minLength) {
+        return pw.length() >= minLength;
     }
 
-    public static boolean containsKDigits(String PW, int minTimes) {
+    public static boolean containsKDigits(String pw, int minTimes) {
 
         // simple regex
         //String regex = "\\d.*".repeat(minTimes);
@@ -36,32 +36,32 @@ public class PWValidation {
         String regex = ".*(\\d.*){" + minTimes + ",}.*";
 
         Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(PW);
+        Matcher m = p.matcher(pw);
 
         return m.find();
     }
 
-    public static boolean containsLowerAndUpperCase(String PW) {
+    public static boolean containsLowerAndUpperCase(String pw) {
 
 //        String patternInput = "[A-Z].*[a-z].*[A-Z].*[A-Z].*";
 //
 //        Pattern p = Pattern.compile(patternInput);
-//        Matcher m = p.matcher(PW);
+//        Matcher m = p.matcher(pw);
 //
 //        return m.find();
 
         // very simple approach with simple regex patterns
         Pattern p1 = Pattern.compile("[A-Z]+");
-        Matcher m1 = p1.matcher(PW);
+        Matcher m1 = p1.matcher(pw);
 
         Pattern p2 = Pattern.compile("[a-z]+");
-        Matcher m2 = p2.matcher(PW);
+        Matcher m2 = p2.matcher(pw);
 
         return m1.find() && m2.find();
     }
 
-    public static boolean isWeakPW(String PW) {
-        return weakPasswords.stream().anyMatch(pwInStream -> pwInStream.equals(PW));
+    public static boolean isWeakPW(String pw) {
+        return weakPasswords.stream().anyMatch(pwInStream -> pwInStream.equals(pw));
     }
 
     public static boolean containsSpecialChar(String PW) {
@@ -95,7 +95,7 @@ public class PWValidation {
                     .map(c -> getRandomCharacter())
                     .map(String::valueOf)
                     .collect(Collectors.joining());
-        } while (!containsKDigits(randomPW, minNumberOfDigits) && !containsLowerAndUpperCase(randomPW) && !isWeakPW(randomPW));
+        } while (!containsKDigits(randomPW, minNumberOfDigits) && !containsLowerAndUpperCase(randomPW) && isWeakPW(randomPW));
 
         return randomPW;
     }
