@@ -54,4 +54,51 @@ class PWValidationTest {
         Assertions.assertEquals(expectedRes, actualRes);
     }
 
+
+    // ##########################################################################
+
+    @DisplayName("test method to ensure that both uppercase and lowercase letters are found in the password.")
+    @ParameterizedTest(name = "Case {index}: testPW=\"{0}\" => result={1}")
+    @CsvSource(
+            delimiter = ':',
+            value = {
+                    "Wsdfe:true",
+                    "sjdhjshdjhskhd:false",
+                    "s3ldk2 sd:false",
+                    "S ks3jd kj jJ:true",
+                    "456sd3:false",
+                    "sdFkj:true",
+            }
+    )
+    void containsLowerAndUpperCase_test(String testPW, boolean expectedRes) {
+
+        // WHEN
+        boolean actualRes = PWValidation.containsLowerAndUpperCase(testPW);
+        //THEN
+        Assertions.assertEquals(expectedRes, actualRes);
+    }
+
+    // ##########################################################################
+
+    @DisplayName("checking if the password contains weak passwords like 'Password1' or 'Aa345678'")
+    @ParameterizedTest(name = "Case {index}: testPW=\"{0}\" => result={1}")
+    @CsvSource(
+            delimiter = ':',
+            value = {
+                    "Wsdfe:false",
+                    "sjdhjshdjhskhd:false",
+                    "s3ldk2 sd:false",
+                    "Password1:true",
+                    "qwertz:true",
+                    "qwerty:true",
+            }
+    )
+    void isWeakPW_test(String testPW, boolean expectedRes) {
+
+        // WHEN
+        boolean actualRes = PWValidation.isWeakPW(testPW);
+        //THEN
+        Assertions.assertEquals(expectedRes, actualRes);
+    }
+
 }
