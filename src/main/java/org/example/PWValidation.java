@@ -64,6 +64,14 @@ public class PWValidation {
         return weakPasswords.stream().anyMatch(pwInStream -> pwInStream.equals(PW));
     }
 
+    public static boolean containsSpecialChar(String PW) {
+
+        Pattern p = Pattern.compile("[^0-9a-zA-Z]+");
+        Matcher m = p.matcher(PW);
+
+        return m.find();
+    }
+
     public static char getRandomCharacter() {
         // helper function to generate one random character
         Random random = new Random();

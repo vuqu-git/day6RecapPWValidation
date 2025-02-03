@@ -101,4 +101,27 @@ class PWValidationTest {
         Assertions.assertEquals(expectedRes, actualRes);
     }
 
+    // ##########################################################################
+
+    @DisplayName("checking if the password contains weak passwords like 'Password1' or 'Aa345678'")
+    @ParameterizedTest(name = "Case {index}: \"{0}\" => {1}")
+    @CsvSource(
+            delimiter = ':',
+            value = {
+                    "Wsd_fe:true",
+                    "sjdhjshdjhskhd:false",
+                    "s3ldk2#sd:true",
+                    "Password1:false",
+                    "qwert@:true",
+                    "qwerty:false",
+            }
+    )
+    void containsSpecialChar_test(String testPW, boolean expectedRes) {
+
+        // WHEN
+        boolean actualRes = PWValidation.containsSpecialChar(testPW);
+        //THEN
+        Assertions.assertEquals(expectedRes, actualRes);
+    }
+
 }
