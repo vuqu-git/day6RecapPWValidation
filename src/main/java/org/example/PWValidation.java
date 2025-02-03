@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class PWValidation {
 
+    // alternative: read in of some csf file
     private static final List<String> weakPasswords = Arrays.asList(
             "qwertz",
             "qwerty",
@@ -27,9 +28,14 @@ public class PWValidation {
 
     public static boolean containsKDigits(String PW, int minTimes) {
 
-        String patternInput = "\\d.*".repeat(minTimes);
+        // simple regex
+        //String regex = "\\d.*".repeat(minTimes);
 
-        Pattern p = Pattern.compile(patternInput);
+        // advanced ".*(\\d.*){k}"
+        // parameterized with a concrete value for k (=minimum time of digit occurrences)
+        String regex = ".*(\\d.*){" + minTimes + ",}.*";
+
+        Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(PW);
 
         return m.find();
@@ -37,19 +43,21 @@ public class PWValidation {
 
     public static boolean containsLowerAndUpperCase(String PW) {
 
-//        String patternInput = "\\d.*".repeat(minTimes);
+        String patternInput = "[A-Z].*[a-z].*[A-Z].*[A-Z].*";
+
+        Pattern p = Pattern.compile(patternInput);
+        Matcher m = p.matcher(PW);
+
+        return m.find();
+
+        // very simple approach with simple regex patterns
+//        Pattern p1 = Pattern.compile("[A-Z]+");
+//        Matcher m1 = p1.matcher(PW);
 //
-//        Pattern p = Pattern.compile(patternInput);
-//        Matcher m = p.matcher(PW);
-
-
-        Pattern p1 = Pattern.compile("[A-Z]+");
-        Matcher m1 = p1.matcher(PW);
-
-        Pattern p2 = Pattern.compile("[a-z]+");
-        Matcher m2 = p2.matcher(PW);
-
-        return m1.find() && m2.find();
+//        Pattern p2 = Pattern.compile("[a-z]+");
+//        Matcher m2 = p2.matcher(PW);
+//
+//        return m1.find() && m2.find();
     }
 
     public static boolean isWeakPW(String PW) {
@@ -61,7 +69,7 @@ public class PWValidation {
         Random random = new Random();
 
         //int randomASCII = random.nextInt(95) + 32; // Printable ASCII from space (32) to ~ (126)
-        int randomASCII = random.nextInt(95) + 33; // without space, starting ! (33) to ~ (126)
+        int randomASCII = random.nextInt(94) + 33; // without space, starting ! (33) to ~ (126)
         return (char) randomASCII;
     }
 
@@ -69,7 +77,7 @@ public class PWValidation {
 
         String randomPW;
 
-        // this line ensures that the password will have min length 8 and max length 30+8
+        // this line ensures that the password will have min length 8 and max length 30-1+8
         int randomLength = new Random().nextInt(30)+8;
 
         do {
@@ -77,7 +85,6 @@ public class PWValidation {
             randomPW = passwordAsList
                     .stream()
                     .map(c -> getRandomCharacter())
-                    //.map(PWValidation::getRandomCharacter)
                     .map(String::valueOf)
                     .collect(Collectors.joining());
         } while (!containsKDigits(randomPW, minNumberOfDigits) && !containsLowerAndUpperCase(randomPW) && !isWeakPW(randomPW));

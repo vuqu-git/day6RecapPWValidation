@@ -58,7 +58,7 @@ class PWValidationTest {
     // ##########################################################################
 
     @DisplayName("test method to ensure that both uppercase and lowercase letters are found in the password.")
-    @ParameterizedTest(name = "Case {index}: testPW=\"{0}\" => result={1}")
+    @ParameterizedTest(name = "Case {index}: \"{0}\" => {1}")
     @CsvSource(
             delimiter = ':',
             value = {
@@ -81,7 +81,7 @@ class PWValidationTest {
     // ##########################################################################
 
     @DisplayName("checking if the password contains weak passwords like 'Password1' or 'Aa345678'")
-    @ParameterizedTest(name = "Case {index}: testPW=\"{0}\" => result={1}")
+    @ParameterizedTest(name = "Case {index}: \"{0}\" => {1}")
     @CsvSource(
             delimiter = ':',
             value = {
