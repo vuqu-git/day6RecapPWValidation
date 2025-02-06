@@ -43,21 +43,21 @@ public class PWValidation {
 
     public static boolean containsLowerAndUpperCase(String pw) {
 
-//        String patternInput = "[A-Z].*[a-z].*[A-Z].*[A-Z].*";
+        String regex = "^(?=.*[A-Z])(?=.*[a-z]).+$";
+
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(pw);
+
+        return m.matches();
+
+//        // very simple approach with simple regex patterns
+//        Pattern p1 = Pattern.compile("[A-Z]+");
+//        Matcher m1 = p1.matcher(pw);
 //
-//        Pattern p = Pattern.compile(patternInput);
-//        Matcher m = p.matcher(pw);
+//        Pattern p2 = Pattern.compile("[a-z]+");
+//        Matcher m2 = p2.matcher(pw);
 //
-//        return m.find();
-
-        // very simple approach with simple regex patterns
-        Pattern p1 = Pattern.compile("[A-Z]+");
-        Matcher m1 = p1.matcher(pw);
-
-        Pattern p2 = Pattern.compile("[a-z]+");
-        Matcher m2 = p2.matcher(pw);
-
-        return m1.find() && m2.find();
+//        return m1.find() && m2.find();
     }
 
     public static boolean isWeakPW(String pw) {

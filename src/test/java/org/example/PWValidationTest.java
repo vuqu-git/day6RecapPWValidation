@@ -80,7 +80,7 @@ class PWValidationTest {
 
     // ##########################################################################
 
-    @DisplayName("checking if the password contains weak passwords like 'Password1' or 'Aa345678'")
+    @DisplayName("checking if the password is a weak password like 'Password1' or 'Aa345678'")
     @ParameterizedTest(name = "Case {index}: \"{0}\" => {1}")
     @CsvSource(
             delimiter = ':',
@@ -103,7 +103,7 @@ class PWValidationTest {
 
     // ##########################################################################
 
-    @DisplayName("checking if the password contains weak passwords like 'Password1' or 'Aa345678'")
+    @DisplayName("checking if the password contains a special character")
     @ParameterizedTest(name = "Case {index}: \"{0}\" => {1}")
     @CsvSource(
             delimiter = ':',
